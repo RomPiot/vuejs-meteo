@@ -7,15 +7,25 @@
           {{ cityItem.town }}
         </option>
       </select>
-      <button class="btn btn-primary" @click="refreshCurrentWeather()">
-      Rechercher
-    </button>
+
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary mr-2" @click="refreshCurrentWeather()">
+          Météo actuelle
+        </button>
+        <button class="btn btn-info ml-2" @click="refreshCurrentWeather()">
+          Prévision des températures maximales
+        </button>
+      </div>
     </div>
-    
-    <div id="meteo" class="block">
+
+    <div id="meteo" class="block" v-if="error != true">
       <p>Météo actuelle à {{ citySelected }}</p>
-      <p>Temperature : {{ refreshCurrentWeather() }}°C</p>
+      <p>Temperature : {{ temperature }}°C</p>
       <p>Date : {{ formatDate(date) }}</p>
+    </div>
+
+    <div id="meteo" class="block" v-else>
+      <p class="text-danger">Impossible de récupérer les données météo</p>
     </div>
 
     <router-link to="/">Retour à l'accueil</router-link>
@@ -24,7 +34,9 @@
 
 <script>
 import json from "../../meteo.json";
+import weatherApiKey from "../../weather-api-key.json";
 import moment from "moment";
+import axios from "axios";
 
 export default {
   data() {
@@ -34,10 +46,17 @@ export default {
       town: json[0].town,
       cityArray: json,
       citySelected: "",
+      api_link: "http://api.openweathermap.org/data/2.5/weather?q=",
+      api_key: "",
+      error: "",
     };
   },
   created: function () {
-    this.citySelected = this.$route.params.city;
+    if (this.$route.params.city != "") {
+      this.citySelected = this.$route.params.city;
+      this.api_key = weatherApiKey.api_key;
+      this.refreshCurrentWeather();
+    }
   },
   methods: {
     formatDate() {
@@ -45,15 +64,33 @@ export default {
       return moment().format("Do MMMM YYYY");
     },
     refreshCurrentWeather() {
-      return Math.floor(Math.random() * Math.floor(40));
+      // return Math.floor(Math.random() * Math.floor(40));
+      axios
+        .get(
+          this.api_link +
+            this.citySelected +
+            "&appid=" +
+            this.api_key +
+            "&units=metric"
+        )
+        .then((response) => {
+          this.temperature = response.data.main.temp;
+        })
+        .catch(() => {
+          this.error = true;
+        });
     },
   },
 };
 </script>
 
 <style>
+.btn {
+  width: fit-content;
+}
+
 .block {
-  width: 500px;
+  width: 900px;
   background-color: grey;
   margin: 0 auto;
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Router from 'vue-router'
 import CurrentWeather from './components/CurrentWeather.vue'
+import ForecastChart from './components/ForecastChart.vue'
 
 Vue.use(Router)
 
@@ -14,6 +15,10 @@ const router = new Router({
     {
       path: '/current-weather/:city',
       component: CurrentWeather
+    },
+    {
+      path: '/forecastChart/:city',
+      component: ForecastChart
     }
   ]
 })

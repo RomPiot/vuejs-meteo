@@ -1,17 +1,14 @@
 [
   {
     "id": 1,
-    "town": "Lyon",
-    "temperature": "18"
+    "town": "Lyon"
   },
   {
     "id": 2,
-    "town": "Marseille",
-    "temperature": "18"
+    "town": "Marseille"
   },
   {
     "id": 3,
-    "town": "Paris",
-    "temperature": "18"
+    "town": "Paris"
   }
 ]
