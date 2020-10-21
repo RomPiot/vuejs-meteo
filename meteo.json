@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "town": "Lyon",
+    "temperature": "18"
+  },
+  {
+    "id": 2,
+    "town": "Marseille",
+    "temperature": "18"
+  },
+  {
+    "id": 3,
+    "town": "Paris",
+    "temperature": "18"
+  }
+]
