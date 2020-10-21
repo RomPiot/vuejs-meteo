@@ -1,19 +1,24 @@
 <template>
   <div class="container">
-    <div>
+    <div class="block mb-4 d-flex flex-column selectBlock">
+      <p class="">Où ?</p>
       <select v-model="citySelected" class="w-100">
-        <option v-for="city in cityArray" :key="city.id">
-          {{ city.town }} 
+        <option v-for="cityItem in cityArray" :key="cityItem.city">
+          {{ cityItem.town }}
         </option>
       </select>
+      <button class="btn btn-primary" @click="refreshCurrentWeather()">
+      Rechercher
+    </button>
     </div>
-    <button class="btn btn-primary" @click="refreshCurrentWeather()">Search</button>
-
-    <div id="meteo">
+    
+    <div id="meteo" class="block">
       <p>Météo actuelle à {{ citySelected }}</p>
       <p>Temperature : {{ refreshCurrentWeather() }}°C</p>
       <p>Date : {{ formatDate(date) }}</p>
     </div>
+
+    <router-link to="/">Retour à l'accueil</router-link>
   </div>
 </template>
 
@@ -28,8 +33,11 @@ export default {
       temperature: json[0].temperature,
       town: json[0].town,
       cityArray: json,
-      citySelected: ""
+      citySelected: "",
     };
+  },
+  created: function () {
+    this.citySelected = this.$route.params.city;
   },
   methods: {
     formatDate() {
@@ -38,15 +46,23 @@ export default {
     },
     refreshCurrentWeather() {
       return Math.floor(Math.random() * Math.floor(40));
-    }
+    },
   },
 };
 </script>
 
 <style>
-#meteo {
+.block {
   width: 500px;
   background-color: grey;
   margin: 0 auto;
+}
+
+.selectBlock {
+  padding: 10px 50px;
+}
+
+.selectBlock select {
+  margin-bottom: 10px;
 }
 </style>

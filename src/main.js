@@ -8,7 +8,11 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/current-weather/:cityParameter',
+      path: '/current-weather/',
+      component: CurrentWeather
+    },
+    {
+      path: '/current-weather/:city',
       component: CurrentWeather
     }
   ]
