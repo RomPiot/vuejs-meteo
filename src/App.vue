@@ -1,22 +1,23 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <CurrentWeather /> -->
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/CurrentWeather.vue'
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    // CurrentWeather,
+  },
+};
 </script>
 
 <style>
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; 
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    
     <div>
       <select v-model="citySelected" class="w-100">
         <option v-for="city in cityArray" :key="city.id">
